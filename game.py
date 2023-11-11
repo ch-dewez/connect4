@@ -15,14 +15,11 @@ class Game:
     
     def print_board(self):
         for y in range(self.sizeY):
-            print(" ".join(str(e) for e in self.board[y]))
+            print("  ".join(str(e) for e in self.board[y]))
         print()
 
     def changePlayerPlaying(self):
-        if (self.playerToMove == 1):
-            self.playerToMove = 2
-        else:
-            self.playerToMove = 1
+        self.playerToMove = 3 - self.playerToMove
 
     def move(self, collumn, doChangePlayerPlaying = True):
         newBoard = self.board.copy()
@@ -33,14 +30,3 @@ class Game:
                 newBoard[y][collumn] = self.playerToMove
                 if (doChangePlayerPlaying): self.changePlayerPlaying()
                 return  (newBoard, True)
-
-    def checkDraw(self):
-        for x in range(self.sizeX):
-            if (self.board[0][x] == 0):
-                return False
-        return True
-    
-    def checkWinLastMove(self, x, y):
-        pass
-
-game = Game()
