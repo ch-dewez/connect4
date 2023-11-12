@@ -253,4 +253,4 @@ def getHashFromBoard(board):
     for y in range(sizeY):
         for x in range(sizeX):
             hash += str(board[y][x])
-    return hash
+    return int(hash)
