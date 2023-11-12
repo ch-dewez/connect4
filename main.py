@@ -31,7 +31,7 @@ while True:
         print("Draw")
         break
     start = time.perf_counter()
-    _, move = algorithm.minimax(copy.deepcopy(game.board), 6, -100000, 100000, True, bot)
+    _, move, _ = algorithm.minimax(copy.deepcopy(game.board), 6, -100000, 100000, True, bot)
     end = time.perf_counter()
     print(f"Time taken: {end - start}")
     print(f"Bot move: {move}")

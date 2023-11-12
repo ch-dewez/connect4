@@ -4,9 +4,13 @@ sizeY = 6
 def checkVertical(board, player, x):
     listOfPieceInLine = [0, 0]
     pieceInLine = 0
+    lastPieceBeforeLine = 1 # 0 = empty, 1 = wall or other player
+    lastPiece = 1 # 0 = empty, 1 = wall or other player, 2 = player
     for y in range(sizeY):
         if board[y][x] == player:
             pieceInLine += 1
+            if lastPiece != 2:
+                lastPieceBeforeLine = lastPiece
         elif board[y][x] == 0:
             if pieceInLine == 2:
                 listOfPieceInLine[0] += 1
@@ -14,17 +18,27 @@ def checkVertical(board, player, x):
                 listOfPieceInLine[1] += 1
             pieceInLine = 0
         else:
+            if lastPieceBeforeLine == 0:
+                if pieceInLine == 2:
+                    listOfPieceInLine[0] += 1
+                elif pieceInLine == 3:
+                    listOfPieceInLine[1] += 1
             pieceInLine = 0
         if pieceInLine == 4:
             return True, listOfPieceInLine
+        lastPiece = 0 if board[y][x] == 0 else 2 if board[y][x] == player else 1
     return False, listOfPieceInLine
 
 def checkHorizontal(board, player, y):
     pieceInLine = 0
     listOfPieceInLine = [0, 0]
+    lastPieceBeforeLine = 1 # 0 = empty, 1 = wall or other player
+    lastPiece = 1 # 0 = empty, 1 = wall or other player, 2 = player
     for x in range(sizeX):
         if board[y][x] == player:
             pieceInLine += 1
+            if lastPiece != 2:
+                lastPieceBeforeLine = lastPiece
         elif board[y][x] == 0:
             if pieceInLine == 2:
                 listOfPieceInLine[0] += 1
@@ -32,9 +46,15 @@ def checkHorizontal(board, player, y):
                 listOfPieceInLine[1] += 1
             pieceInLine = 0
         else:
+            if lastPieceBeforeLine == 0:
+                if pieceInLine == 2:
+                    listOfPieceInLine[0] += 1
+                elif pieceInLine == 3:
+                    listOfPieceInLine[1] += 1
             pieceInLine = 0
         if pieceInLine == 4:
             return True, listOfPieceInLine
+        lastPiece = 0 if board[y][x] == 0 else 2 if board[y][x] == player else 1
     return False, listOfPieceInLine
 
 def checkDraw(board):
@@ -48,10 +68,14 @@ def checkDiagonalSWNE(board, player, x, y):
     checkY = y
     pieceInLine = 0
     listOfPieceInLine = [0, 0]
+    lastPieceBeforeLine = 1 # 0 = empty, 1 = wall or other player
+    lastPiece = 1 # 0 = empty, 1 = wall or other player, 2 = player
 
     while checkX < sizeX and checkY < sizeY:
         if board[checkY][checkX] == player:
             pieceInLine += 1
+            if lastPiece != 2:
+                lastPieceBeforeLine = lastPiece
         elif board[y][x] == 0:
             if pieceInLine == 2:
                 listOfPieceInLine[0] += 1
@@ -59,9 +83,15 @@ def checkDiagonalSWNE(board, player, x, y):
                 listOfPieceInLine[1] += 1
             pieceInLine = 0
         else:
+            if lastPieceBeforeLine == 0:
+                if pieceInLine == 2:
+                    listOfPieceInLine[0] += 1
+                elif pieceInLine == 3:
+                    listOfPieceInLine[1] += 1
             pieceInLine = 0
         if pieceInLine == 4:
             return True, listOfPieceInLine
+        lastPiece = 0 if board[checkY][checkX] == 0 else 2 if board[checkY][checkX] == player else 1
         checkX += 1
         checkY -= 1
     return False, listOfPieceInLine
@@ -71,9 +101,13 @@ def checkDiagonalSENW(board, player, x, y):
     checkY = y
     pieceInLine = 0
     listOfPieceInLine = [0, 0]
+    lastPieceBeforeLine = 1 # 0 = empty, 1 = wall or other player
+    lastPiece = 1 # 0 = empty, 1 = wall or other player, 2 = player
     while checkX >= 0 and checkY < sizeY:
         if board[checkY][checkX] == player:
             pieceInLine += 1
+            if lastPiece != 2:
+                lastPieceBeforeLine = lastPiece
         elif board[y][x] == 0:
             if pieceInLine == 2:
                 listOfPieceInLine[0] += 1
@@ -81,11 +115,17 @@ def checkDiagonalSENW(board, player, x, y):
                 listOfPieceInLine[1] += 1
             pieceInLine = 0
         else:
+            if lastPieceBeforeLine == 0:
+                if pieceInLine == 2:
+                    listOfPieceInLine[0] += 1
+                elif pieceInLine == 3:
+                    listOfPieceInLine[1] += 1
             pieceInLine = 0
         if pieceInLine == 4:
             return True, listOfPieceInLine
         checkX -= 1
         checkY -= 1
+        lastPiece = 0 if board[checkY][checkX] == 0 else 2 if board[checkY][checkX] == player else 1
     return False, listOfPieceInLine
 
 def checkWinLastMove(x, y, player, board):
@@ -207,3 +247,10 @@ def getBoardEval(board, player):
         evaluation -= 3
 
     return evaluation
+
+def getHashFromBoard(board):
+    hash = ""
+    for y in range(sizeY):
+        for x in range(sizeX):
+            hash += str(board[y][x])
+    return hash
