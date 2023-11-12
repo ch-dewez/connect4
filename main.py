@@ -7,8 +7,8 @@ import time
 game = Game()
 player = 1
 bot = 2
+game.print_board()
 while True:
-    game.print_board()
     while True:
         try:
             collumn = int(input("Enter collumn: "))
@@ -23,6 +23,7 @@ while True:
         continue
     
     game.board = newBoard
+    game.print_board() 
     
     if getBoardInfo.checkWinFullBoard(game.board, player)[0]:
         print("You Win")
@@ -38,6 +39,7 @@ while True:
     newBoard, _ = game.move(move)
     
     game.board = newBoard
+    game.print_board() 
     
     if getBoardInfo.checkWinFullBoard(game.board, bot)[0]:
         print("You Loose")
