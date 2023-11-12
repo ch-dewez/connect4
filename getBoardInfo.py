@@ -88,6 +88,45 @@ def checkDiagonalSENW(board, player, x, y):
         checkY -= 1
     return False, listOfPieceInLine
 
+def checkWinLastMove(x, y, player, board):
+    # check vertical
+    if checkVertical(board, player, x)[0]:
+        return True
+
+    # check horizontal
+    if checkHorizontal(board, player, y)[0]:
+        return True
+
+    # check diagonal SW -> NE
+
+    # get first piece in diagonal
+    firstX = x
+    firstY = y
+    while True:
+        if firstX == 0 or firstY == sizeY-1:
+            break
+        firstX -= 1
+        firstY += 1 # SW -> NE [0] is top
+
+    if checkDiagonalSWNE(board, player, firstX, firstY)[0]:
+        return True
+
+    # check diagonal SE -> NW
+
+    # get first piece in diagonal
+    firstX = x
+    firstY = y
+    while True:
+        if firstX == sizeX - 1 or firstY == sizeY-1:
+            break
+        firstX += 1
+        firstY += 1 # SE -> NW [0] is top
+
+    if checkDiagonalSENW(board, player, firstX, firstY)[0]:
+        return True
+
+    return False
+
 def checkWinFullBoard(board, player):
     listOfPieceInLine = [0, 0]
 
@@ -136,6 +175,11 @@ def checkWinFullBoard(board, player):
 
 def isFinished(board):
     if checkWinFullBoard(board, 1)[0] or checkWinFullBoard(board, 2)[0] or checkDraw(board):
+        return True
+    return False
+
+def isFinishedLastMove(x, y, player, board):
+    if checkWinLastMove(x, y, player, board) or checkDraw(board):
         return True
     return False
 
