@@ -1,4 +1,4 @@
-from copy import deepcopy
+from copy import deepcopy, copy
 import getBoardInfo
 
 
@@ -16,7 +16,7 @@ def minimax(board, depth, alpha, beta, maximizingPlayer, botNumber):
             for y in reversed(range(getBoardInfo.sizeY)):
                 if (board[y][collumn] == 0):
                     newBoard[y][collumn] = botNumber
-                    
+                    break
             evaluation, _ = minimax(deepcopy(newBoard), depth - 1, alpha, beta, False, botNumber)
             if (evaluation > maxEval):
                 maxEval = evaluation
@@ -24,7 +24,6 @@ def minimax(board, depth, alpha, beta, maximizingPlayer, botNumber):
             alpha = max(alpha, maxEval)
             if beta <= alpha:
                 break
-        print(depth, maxEval,bestMove, maximizingPlayer)
         return maxEval, bestMove
     else:
         minEval = 100000
@@ -36,6 +35,7 @@ def minimax(board, depth, alpha, beta, maximizingPlayer, botNumber):
             for y in reversed(range(getBoardInfo.sizeY)):
                 if (board[y][collumn] == 0):
                     newBoard[y][collumn] = 3 - botNumber
+                    break
             evaluation, _ = minimax(deepcopy(newBoard), depth - 1, alpha, beta, True, botNumber)
             if (evaluation < minEval):
                 minEval = evaluation
@@ -43,5 +43,4 @@ def minimax(board, depth, alpha, beta, maximizingPlayer, botNumber):
             beta = min(beta, minEval)
             if beta <= alpha:
                 break
-        print(depth, minEval,bestMove, maximizingPlayer)
         return minEval, bestMove

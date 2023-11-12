@@ -31,11 +31,9 @@ while True:
         print("Draw")
         break
     
-    print(game.board)
     _, move = algorithm.minimax(copy.deepcopy(game.board), 4, -100000, 100000, True, bot)
-    print(game.board)
     newBoard, _ = game.move(move)
-    print(newBoard)
+    
     game.board = newBoard
     
     if getBoardInfo.checkWinFullBoard(game.board, bot)[0]:
