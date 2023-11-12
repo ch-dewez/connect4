@@ -1,3 +1,4 @@
+from termcolor import colored
 class Game:
     def __init__(self, sizeX=7, sizeY=6):
         self.sizeX = sizeX
@@ -15,7 +16,7 @@ class Game:
     
     def print_board(self):
         for y in range(self.sizeY):
-            print("  ".join("X" if e == 1 else "Y" if e == 2 else "O" for e in self.board[y]))
+            print("  ".join(colored("X", "red") if e == 1 else colored("Y", "yellow") if e == 2 else "O" for e in self.board[y]))
         print()
 
     def changePlayerPlaying(self):
