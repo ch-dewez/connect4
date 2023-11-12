@@ -31,7 +31,8 @@ while True:
         print("Draw")
         break
     
-    _, move = algorithm.minimax(copy.deepcopy(game.board), 4, -100000, 100000, True, bot)
+    _, move = algorithm.minimax(copy.deepcopy(game.board), 6, -100000, 100000, True, bot)
+    print(f"Bot move: {move}")
     newBoard, _ = game.move(move)
     
     game.board = newBoard
