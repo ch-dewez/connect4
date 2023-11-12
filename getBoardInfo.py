@@ -103,7 +103,7 @@ def checkDiagonalSENW(board, player, x, y):
     listOfPieceInLine = [0, 0]
     lastPieceBeforeLine = 1 # 0 = empty, 1 = wall or other player
     lastPiece = 1 # 0 = empty, 1 = wall or other player, 2 = player
-    while checkX >= 0 and checkY < sizeY:
+    while checkX >= 0 and checkY < sizeY-1:
         if board[checkY][checkX] == player:
             pieceInLine += 1
             if lastPiece != 2:
