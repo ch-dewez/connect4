@@ -1,10 +1,14 @@
 from game import Game
+import getBoardInfo
+import algorithm
+import copy
+
 
 game = Game()
-game.print_board()
 player = 1
 bot = 2
 while True:
+    game.print_board()
     while True:
         try:
             collumn = int(input("Enter collumn: "))
@@ -17,3 +21,26 @@ while True:
     if not success:
         print("Invalid collumn")
         continue
+    
+    game.board = newBoard
+    
+    if getBoardInfo.checkWinFullBoard(game.board, player)[0]:
+        print("You Win")
+        break
+    elif getBoardInfo.checkDraw(game.board):
+        print("Draw")
+        break
+    
+    print(game.board)
+    _, move = algorithm.minimax(copy.deepcopy(game.board), 4, -100000, 100000, True, bot)
+    print(game.board)
+    newBoard, _ = game.move(move)
+    print(newBoard)
+    game.board = newBoard
+    
+    if getBoardInfo.checkWinFullBoard(game.board, bot)[0]:
+        print("You Loose")
+        break
+    elif getBoardInfo.checkDraw(game.board):
+        print("Draw")
+        break
