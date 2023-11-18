@@ -6,7 +6,7 @@ def checkDraw(board):
         return True
     return False
 
-def checkWinFullBoard(board, player):
+def checkWin(board, player):
     if board[player-1] & board[player-1] << 8  & board[player-1] << 16 & board[player-1] << 24  != 0: return True
     if board[player-1] & board[player-1] << 1  & board[player-1] << 2  & board[player-1] << 3   != 0: return True
     if board[player-1] & board[player-1] << 7  & board[player-1] << 14 & board[player-1] << 21  != 0: return True
@@ -14,32 +14,30 @@ def checkWinFullBoard(board, player):
     return False
     
 def isFinished(board):
-    if checkWinFullBoard(board, 1) or checkWinFullBoard(board, 2) or checkDraw(board):
+    if checkWin(board, 1) or checkWin(board, 2) or checkDraw(board):
         return True
     return False
 
 
 def getBoardEval(board, player):
-    doWin, playerEval = checkWinFullBoard(board, player)
-    if doWin:
+    if checkWin(board, player):
         return 50
-    doLose, otherPlayerEval = checkWinFullBoard(board, 3 - player)
-    if doLose:
+    if checkWin(board, 3-player):
         return -50
     doDraw = checkDraw(board)
     if doDraw:
         return 0
 
     evaluation = 0
-    evaluation += (board[player-1] & board[player-1] << 8).count(1)
-    evaluation += (board[player-1] & board[player-1] << 1).count(1)
-    evaluation += (board[player-1] & board[player-1] << 7).count(1)
-    evaluation += (board[player-1] & board[player-1] << 9).count(1)
+    evaluation += bin(board[player-1] & board[player-1] << 8)[2:].count("1")
+    evaluation += bin(board[player-1] & board[player-1] << 1)[2:].count("1")
+    evaluation += bin(board[player-1] & board[player-1] << 7)[2:].count("1")
+    evaluation += bin(board[player-1] & board[player-1] << 9)[2:].count("1")
     
-    evaluation += (board[3-(player-1)] & board[3-(player-1)] << 8).count(1)
-    evaluation += (board[3-(player-1)] & board[3-(player-1)] << 1).count(1)
-    evaluation += (board[3-(player-1)] & board[3-(player-1)] << 7).count(1)
-    evaluation += (board[3-(player-1)] & board[3-(player-1)] << 9).count(1)
+    evaluation += bin(board[3-player-1] & board[3-player-1] << 8)[2:].count("1")
+    evaluation += bin(board[3-player-1] & board[3-player-1] << 1)[2:].count("1")
+    evaluation += bin(board[3-player-1] & board[3-player-1] << 7)[2:].count("1")
+    evaluation += bin(board[3-player-1] & board[3-player-1] << 9)[2:].count("1")
     
     return evaluation
 
