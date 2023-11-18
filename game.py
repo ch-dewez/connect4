@@ -15,7 +15,6 @@ class Game:
                 if bit == "1":
                     y = (i // (self.sizeX + 1)) - 1
                     x = i % (self.sizeX + 1)
-                    print(x, y)
                     boardToPrint[y][x] = j + 1
         
         for y in range(self.sizeY):
