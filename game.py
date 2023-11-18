@@ -18,11 +18,11 @@ class Game:
                     print(x, y)
                     boardToPrint[y][x] = j + 1
                     
-        print(boardToPrint)
+        # print(boardToPrint)
         
-        for y in range(self.sizeY):
-            print("  ".join(colored("X", "red") if e == 1 else colored("Y", "yellow") if e == 2 else "O" for e in boardToPrint[y]))
-        print()
+        # for y in range(self.sizeY):
+        #     print("  ".join(colored("X", "red") if e == 1 else colored("Y", "yellow") if e == 2 else "O" for e in boardToPrint[y]))
+        # print()
 
     def changePlayerPlaying(self):
         self.playerToMove = 3 - self.playerToMove
