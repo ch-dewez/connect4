@@ -2,7 +2,7 @@ sizeX = 7
 sizeY = 6
 
 def checkDraw(board):
-    if board[0] | board[1] == int("11111110111111101111111011111110111111101111111011111110", 2):
+    if ~(board[0] | board[1]) == 0:
         return True
     return False
 

@@ -1,15 +1,15 @@
 from game import Game
 import getBoardInfo
 import algorithm
-import copy
-import time
 
 game = Game()
-player = 1
+# a full board
+game.playerToMove = 1 if input("Do you want to start ? (y/n) ") == "y" else 2
+humanPlayer = 1
 bot = 2
 
-
-while True:
+def humanToMove():
+    
     while True:
         try:
             collumn = int(input("Enter collumn: "))
@@ -21,22 +21,19 @@ while True:
     success = game.move(collumn)
     if not success:
         print("Invalid collumn")
-        continue
+        return humanToMove()
     
     game.print_board()
     
-    if getBoardInfo.checkWin(game.board, player):
-        print("You Win")
-        break
+    if getBoardInfo.checkWin(game.board, humanPlayer):
+        return "human win"
     elif getBoardInfo.checkDraw(game.board):
-        print("Draw")
-        break
-    
-    start = time.perf_counter()
-    _, move, _ = algorithm.minimax(copy.deepcopy(game.board), 10, -100000, 100000, True, bot)
-    end = time.perf_counter()
-    
-    print(f"Time taken: {end - start}")
+        return "draw"
+
+    return "success"
+
+def botToMove():
+    _, move, _ = algorithm.minimax(game.board, 10, -100000, 100000, True, bot)
     print(f"Bot move: {move}")
     
     _ = game.move(move)
@@ -44,8 +41,28 @@ while True:
     game.print_board() 
     
     if getBoardInfo.checkWin(game.board, bot):
-        print("You Loose")
-        break
+        return "bot win"
     elif getBoardInfo.checkDraw(game.board):
-        print("Draw")
-        break
+        return "draw"
+    
+
+while True:
+    if game.playerToMove == humanPlayer:
+        result = humanToMove()
+        if result == "human win":
+            print("You win")
+            break
+        elif result == "draw":
+            print("draw")
+            break
+        
+    if game.playerToMove == bot:
+        result = botToMove()
+        if result == "bot win":
+            print("You Loose")
+            break
+        elif result == "draw":
+            print("draw")
+            break
+        
+    
