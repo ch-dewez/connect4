@@ -34,10 +34,10 @@ def getBoardEval(board, player):
     evaluation += bin(board[player-1] & board[player-1] << 7)[2:].count("1")
     evaluation += bin(board[player-1] & board[player-1] << 9)[2:].count("1")
     
-    evaluation += bin(board[3-player-1] & board[3-player-1] << 8)[2:].count("1")
-    evaluation += bin(board[3-player-1] & board[3-player-1] << 1)[2:].count("1")
-    evaluation += bin(board[3-player-1] & board[3-player-1] << 7)[2:].count("1")
-    evaluation += bin(board[3-player-1] & board[3-player-1] << 9)[2:].count("1")
+    evaluation -= bin(board[3-player-1] & board[3-player-1] << 8)[2:].count("1")
+    evaluation -= bin(board[3-player-1] & board[3-player-1] << 1)[2:].count("1")
+    evaluation -= bin(board[3-player-1] & board[3-player-1] << 7)[2:].count("1")
+    evaluation -= bin(board[3-player-1] & board[3-player-1] << 9)[2:].count("1")
     
     return evaluation
 
