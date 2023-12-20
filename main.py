@@ -8,6 +8,7 @@ game.playerToMove = 1 if input("Do you want to start ? (y/n) ") == "y" else 2
 humanPlayer = 1
 bot = 2
 
+
 def humanToMove():
     
     while True:
@@ -22,7 +23,7 @@ def humanToMove():
     if not success:
         print("Invalid collumn")
         return humanToMove()
-    
+    print(f"eval {getBoardInfo.getBoardEval(game.board, humanPlayer)}")
     game.print_board()
     
     if getBoardInfo.checkWin(game.board, humanPlayer):
@@ -33,7 +34,7 @@ def humanToMove():
     return "success"
 
 def botToMove():
-    _, move, _ = algorithm.minimax(game.board, 10, -100000, 100000, True, bot)
+    _, move, storage = algorithm.minimax(game.board, 10, -100000, 100000, True, bot)
     print(f"Bot move: {move}")
     
     _ = game.move(move)

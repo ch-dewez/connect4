@@ -14,7 +14,7 @@ def makeAMove(board, collumn, playerToMove):
     return newBoard
 
 #  trying to make optimization 8 -> done -> don't do that much :(, 4 -> done -> big improvement
-# , 9, 2 
+# , 9 -> done with bitboard, 3 -> done, 2 -> don't know how to do
 # of https://larswaechter.dev/blog/minimax-performance-improvements/#:~:text=Improving%20Minimax%20performance%201%201.%20Alpha-Beta%20Pruning%20One,8.%20Improve%20.hasPlayerWon%20%28%29%20function%20...%20%C3%89l%C3%A9ments%20suppl%C3%A9mentaires
 
 def minimax(board, depth, alpha, beta, maximizingPlayer, botNumber, storage = {}, heightMultiplier = 2):
